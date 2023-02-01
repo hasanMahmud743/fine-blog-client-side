@@ -1,9 +1,18 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Card from "../../Components/card/Card";
 
 const Home = () => {
-  const abc = [1, 2, 3, 4, 5, 4];
+    const [blog, setBlog] = useState([])
+    useEffect(()=>{
+        fetch('http://localhost:5000/')
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+            setBlog(data)
+        })
+    }, [])
+
   const className = "bg-indigo-500 text-white";
   const state = useSelector((state) => state);
   console.log(state)
@@ -24,7 +33,7 @@ const Home = () => {
       </div>
 
       <div className="grid grid-cols-3 gap-8 my-10">
-        {abc.map((cart) => (
+        {blog.map((cart) => (
           <Card cart={cart}></Card>
         ))}
       </div>

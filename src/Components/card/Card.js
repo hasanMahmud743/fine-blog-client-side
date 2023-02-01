@@ -1,32 +1,39 @@
 import React from "react";
 import { useDispatch } from "react-redux";
+import { Link, useLocation } from "react-router-dom";
 import { addProduct } from "../../Redux/action/cartAction";
 
 const Card = ({ cart }) => {
-//   console.log(cart);
-  const dispatch = useDispatch()
+  console.log(cart);
+  const dispatch = useDispatch();
+  const { pathname } = useLocation();
 
   return (
-    <div>
-      <div
-        onClick={() => dispatch(addProduct(cart))}
-        className="card cursor-pointer hover:scale-105 transition duration-500 card-compact  bg-base-100 shadow-xl"
-      >
-        <figure>
-          <img
-            src="https://media.istockphoto.com/id/529477147/photo/aerial-view-of-apollo-statue-place-massena-nice-mediterranean-sea.jpg?s=612x612&w=0&k=20&c=UU56ltLP0dRxmXy9wFx6_g0hklX5uLL82dZc0Wr48N4="
-            alt="Shoes"
-          />
-        </figure>
-        <div className="card-body">
-          <h2 className="card-title">Shoes!</h2>
-          <p>
-            If a dog chews shoes whose shoes does he choose? Lorem ipsum dolor
-            sit, amet consectetur adipisicing elit. Error commodi voluptatem
-            veritatis expedita sit facere vero quasi at iusto quidem.
-          </p>
+    <div className="card  card-compact  bg-base-100 shadow-xl">
+      <figure>
+        <img src={cart.blog_image} alt="Shoes" />
+      </figure>
+      {!pathname.includes("history") && (
+        <div className="flex gap-3 p-3">
+          {cart.blog_topic.map((topic) => (
+            <button className="btn btn-outline btn-xs">{topic}</button>
+          ))}
         </div>
+      )}
+      <div className="card-body">
+        <h2 className="card-title">{cart.blog_name}</h2>
+        <p>{cart.blog_details.slice(0, 200)} ...</p>
       </div>
+      <Link
+        onClick={() => dispatch(addProduct(cart))}
+        to={`/details/${cart._id}`}
+      >
+        {!pathname.includes("history") && (
+          <div className="m-5">
+            <button className="btn btn-md w-full ">Read this blog</button>
+          </div>
+        )}
+      </Link>
     </div>
   );
 };
