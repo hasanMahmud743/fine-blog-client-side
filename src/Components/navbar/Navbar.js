@@ -13,12 +13,20 @@ const Navbar = () => {
           Home
         </NavLink>
       </li>
-      <li  className="mx-2">
+      <li className="mx-2">
         <NavLink
           className={({ isActive }) => (isActive ? activeStyle : undefined)}
           to="/history"
         >
           Reading History
+        </NavLink>
+      </li>
+      <li className="mx-2">
+        <NavLink
+          className={({ isActive }) => (isActive ? activeStyle : undefined)}
+          to="/dashboard"
+        >
+          Dashboard
         </NavLink>
       </li>
     </>
