@@ -20,7 +20,7 @@ const AddProduct = () => {
       spec: [],
     };
     // dispatch(addProducts(product))
-    // console.log(product);
+    console.log(product);
   };
 
   return (

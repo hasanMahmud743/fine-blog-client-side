@@ -4,7 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 import { addProduct } from "../../Redux/action/cartAction";
 
 const Card = ({ cart }) => {
-  console.log(cart);
+  // console.log(cart);
   const dispatch = useDispatch();
   const { pathname } = useLocation();
 
