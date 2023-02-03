@@ -1,12 +1,15 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
-import { addProduct } from "../../Redux/action/cartAction";
+import { addProduct, addTags } from "../../Redux/action/cartAction";
 
 const Card = ({ cart }) => {
   // console.log(cart);
   const dispatch = useDispatch();
   const { pathname } = useLocation();
+  const state = useSelector(state=> state.carts.tags)
+  // console.log(state)
+  const className = "bg-indigo-500 text-white";
 
   return (
     <div className="card  card-compact  bg-base-100 shadow-xl">
@@ -16,7 +19,8 @@ const Card = ({ cart }) => {
       {!pathname.includes("history") && (
         <div className="flex gap-3 p-3">
           {cart.blog_topic.map((topic) => (
-            <button className="btn btn-outline btn-xs">{topic}</button>
+            
+            <button onClick={()=> dispatch(addTags(topic))} className={`btn btn-outline ${ (state) === topic && className} btn-xs`}>{topic}</button>
           ))}
         </div>
       )}

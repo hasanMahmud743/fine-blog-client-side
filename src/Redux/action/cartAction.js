@@ -1,4 +1,4 @@
-import { add_to_cart, upload_toggle } from "../actionTypes/actionTypes";
+import { add_product, add_tag, add_to_cart, upload_toggle } from "../actionTypes/actionTypes";
 
 export const addProduct = (cart) => {
   console.log(cart);
@@ -11,13 +11,27 @@ export const addProduct = (cart) => {
 export const firstUploadToggle = (value) => {
   return {
     type: upload_toggle,
-    payload: value
+    payload: value,
   };
 };
 
 export const lastUploadToggle = (value) => {
-    return {
-      type: upload_toggle,
-      payload: value
-    };
+  return {
+    type: upload_toggle,
+    payload: value,
   };
+};
+
+export const addTags = (tagName) => {
+  return {
+    type: add_tag,
+    payload: tagName,
+  };
+};
+
+export const loadProduct =(data) =>{
+  return{
+    type: add_product,
+    payload: data
+  }
+}

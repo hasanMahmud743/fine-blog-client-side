@@ -1,15 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import fetchProduct from "../../Redux/thunk/fetchProduct";
 
 const ProductList = () => {
-  const [products, setProducts] = useState([]);
-  //   const dispatch = useDispatch()
-  //   const products = useSelector(state => state.product.products)
+  // const [products, setProducts] = useState([]);
+    const dispatch = useDispatch()
+    const products = useSelector(state => state.product.products)
 
   useEffect(() => {
-    //    dispatch(fetchProduct())
-    fetch("http://localhost:5000/")
-      .then((res) => res.json())
-      .then((data) => setProducts(data));
+       dispatch(fetchProduct())
+    // fetch("https://fine-blog-server-side.vercel.app")
+    //   .then((res) => res.json())
+    //   .then((data) => setProducts(data));
   });
 
   return (

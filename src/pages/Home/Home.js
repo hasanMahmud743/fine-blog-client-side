@@ -5,33 +5,48 @@ import {
   firstUploadToggle,
   lastUploadToggle
 } from "../../Redux/action/cartAction";
+import fetchProduct from "../../Redux/thunk/fetchProduct";
 
 const Home = () => {
+  const state = useSelector((state) => state);
+  console.log(state);
   const [blog, setBlog] = useState([]);
   const dispatch = useDispatch();
   useEffect(() => {
-    fetch("http://localhost:5000/")
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        setBlog(data);
-      });
+    dispatch(fetchProduct());
+    // fetch("https://fine-blog-server-side.vercel.app")
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     console.log(data);
+    //     setBlog(data);
+    //    dispatch(loadProduct(data))
+    //   });
   }, []);
 
   let allBlog;
 
+  const newBlog = state.product.products.filter((product) => {
+    if (state.carts.tags.length) {
+      // console.log(product.blog_topic);
+      return product.blog_topic.includes("productivity");
+    } else {
+      return product;
+    }
+  });
   const className = "bg-indigo-500 text-white";
-  const state = useSelector((state) => state);
+
   console.log(state);
-  if (blog.length && state.upload === "first") {
-    allBlog = blog
+  if (state.product.products.length && state.carts.upload === "first") {
+    allBlog = newBlog
+
       .sort((a, b) => b._id - a._id)
       .map((cart) => <Card cart={cart}></Card>);
-  } else if (blog.length && state.upload === "last") {
-    allBlog = blog
+  } else if (state.product.products.length && state.carts.upload === "last") {
+    allBlog = newBlog
       .sort((a, b) => a._id - b._id)
       .map((cart) => <Card cart={cart}></Card>);
   }
+
   return (
     <div>
       <div className="flex items-center justify-between mt-8">
@@ -40,7 +55,7 @@ const Home = () => {
           <p
             onClick={() => dispatch(lastUploadToggle("last"))}
             className={`border-2 py-2 px-4 rounded-full cursor-pointer ${
-              state.upload === "last" && className
+              state.carts.upload === "last" && className
             } `}
           >
             Last Upload
@@ -48,7 +63,7 @@ const Home = () => {
           <p
             onClick={() => dispatch(firstUploadToggle("first"))}
             className={`border-2 py-2 px-4 rounded-full cursor-pointer ${
-              state.upload === "first" && className
+              state.carts.upload === "first" && className
             }`}
           >
             First Upload
