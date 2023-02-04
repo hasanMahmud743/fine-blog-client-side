@@ -14,13 +14,12 @@ const cartReducer = (state = initialState, action) => {
     case add_to_cart:
       console.log(action);
       if (state.cart.length) {
-       
-        console.log(repeated)
+        console.log(repeated);
         if (repeated) {
-          repeated.viewed = repeated.viewed + 1
+          repeated.viewed = repeated.viewed + 1;
           return {
             ...state,
-            repeated
+            repeated,
           };
         }
       }

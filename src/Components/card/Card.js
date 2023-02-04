@@ -18,7 +18,7 @@ const Card = ({ cart }) => {
       </figure>
       {!pathname.includes("history") && (
         <div className="flex gap-3 p-3">
-          {cart.blog_topic.map((topic) => (
+          {cart?.blog_topic?.map((topic) => (
             
             <button onClick={()=> dispatch(addTags(topic))} className={`btn btn-outline ${ (state) === topic && className} btn-xs`}>{topic}</button>
           ))}

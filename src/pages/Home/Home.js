@@ -38,7 +38,6 @@ const Home = () => {
   console.log(state);
   if (state.product.products.length && state.carts.upload === "first") {
     allBlog = newBlog
-
       .sort((a, b) => b._id - a._id)
       .map((cart) => <Card cart={cart}></Card>);
   } else if (state.product.products.length && state.carts.upload === "last") {

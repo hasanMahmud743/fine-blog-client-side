@@ -1,18 +1,23 @@
-import React, { useEffect } from "react";
+import { faPenNib } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import Modal from "../../Components/Modal/Modal";
+// import { deleteProduct } from "../../Redux/action/cartAction";
+import deleteProduct from "../../Redux/thunk/deleteProduct";
 import fetchProduct from "../../Redux/thunk/fetchProduct";
 
 const ProductList = () => {
-  // const [products, setProducts] = useState([]);
-    const dispatch = useDispatch()
-    const products = useSelector(state => state.product.products)
+  const [loader, setLoader] = useState(true);
+  const dispatch = useDispatch();
+  const products = useSelector((state) => state.product.products);
 
   useEffect(() => {
-       dispatch(fetchProduct())
+    dispatch(fetchProduct());
     // fetch("https://fine-blog-server-side.vercel.app")
     //   .then((res) => res.json())
     //   .then((data) => setProducts(data));
-  });
+  }, [loader]);
 
   return (
     <div class="flex flex-col justify-center items-center h-full w-full ">
@@ -38,12 +43,11 @@ const ProductList = () => {
                 <th class="p-2">
                   <div class="font-semibold text-left">Price</div>
                 </th>
-                
               </tr>
             </thead>
 
             <tbody class="text-sm divide-y divide-gray-100">
-              {products.map(({ blog_name, brand, price, status, _id }) => (
+              {products.map(({ blog_name, blog_details,  blog_image, price, status, _id }) => (
                 <tr>
                   <td class="p-2">
                     <input type="checkbox" class="w-5 h-5" value="id-1" />
@@ -51,7 +55,7 @@ const ProductList = () => {
                   <td class="p-2">
                     <div class="font-medium text-gray-800">{blog_name}</div>
                   </td>
-                 
+
                   <td class="p-2">
                     <div class="text-left">
                       {status ? (
@@ -68,7 +72,12 @@ const ProductList = () => {
                   </td>
                   <td class="p-2">
                     <div class="flex justify-center">
-                      <button>
+                      <button
+                        onClick={() => {
+                          dispatch(deleteProduct(_id));
+                          setLoader(!loader);
+                        }}
+                      >
                         <svg
                           class="w-8 h-8 hover:text-blue-600 rounded-full hover:bg-gray-100 p-1"
                           fill="none"
@@ -84,6 +93,18 @@ const ProductList = () => {
                           ></path>
                         </svg>
                       </button>
+                    </div>
+                  </td>
+                  <td class="p-2">
+                    <div class="flex justify-center">
+                      {" "}
+                      <label htmlFor={_id}>
+                        <FontAwesomeIcon
+                          className="cursor-pointer hover:bg-indigo-100 p-2 rounded-full"
+                          icon={faPenNib}
+                        />
+                      </label>
+                      <Modal _id={_id} blog_name={blog_name} blog_details={blog_details} blog_image={blog_image}  ></Modal>
                     </div>
                   </td>
                 </tr>
