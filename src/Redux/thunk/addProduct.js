@@ -3,7 +3,7 @@ import { productAdd } from "../action/cartAction";
 const addProduct = (product) => {
   return async (dispatch, getState) => {
     console.log(product);
-    const res = await fetch("http://localhost:5000/blog", {
+    const res = await fetch("https://fine-blog-server-side.vercel.app/blog", {
       method: "post",
       headers: {
         "content-type": "application/json",

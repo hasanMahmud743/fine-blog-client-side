@@ -4,7 +4,7 @@ const deleteProduct = (id) => {
   console.log(id);
   return async (dispatch, getState) => {
     // const dispatch = useDispatch();
-    const res = await fetch(`http://localhost:5000/blog/${id}`, {
+    const res = await fetch(`https://fine-blog-server-side.vercel.app/blog/${id}`, {
       method: "delete",
     });
     const data = await res.json();

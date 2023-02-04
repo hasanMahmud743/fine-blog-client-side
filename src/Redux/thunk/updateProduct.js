@@ -1,7 +1,7 @@
 const updateProduct = (id, product) => {
     return async (dispatch, getState) =>{
         console.log(id)
-        const res = await fetch (`http://localhost:5000/blog/${id}`,{
+        const res = await fetch (`https://fine-blog-server-side.vercel.app/${id}`,{
             method: 'PATCH',
             headers:{
                 'content-type' : 'application/json'

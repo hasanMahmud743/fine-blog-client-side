@@ -1,11 +1,15 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import addProduct from "../../Redux/thunk/addProduct";
 
 const AddProduct = () => {
   const { register, handleSubmit } = useForm();
   const dispatch = useDispatch();
+  const product = useSelector(state => state.product.products)
+  const productLength = product.length
+  console.log(productLength)
+  
 
   const submit = (data) => {
     const product = {
@@ -13,6 +17,7 @@ const AddProduct = () => {
       blog_image: data.blog_image,
       blog_details: data.blog,
       blog_topic: [data.tag1, data.tag2, data.tag3],
+      cartPosition: productLength
     };
     dispatch(addProduct(product));
     console.log(product);

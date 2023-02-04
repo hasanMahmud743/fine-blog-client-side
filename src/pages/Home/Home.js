@@ -38,11 +38,11 @@ const Home = () => {
   console.log(state);
   if (state.product.products.length && state.carts.upload === "first") {
     allBlog = newBlog
-      .sort((a, b) => b._id - a._id)
+      .sort((a, b) => b.cartPosition - a.cartPosition)
       .map((cart) => <Card cart={cart}></Card>);
   } else if (state.product.products.length && state.carts.upload === "last") {
     allBlog = newBlog
-      .sort((a, b) => a._id - b._id)
+      .sort((a, b) => a.cartPosition - b.cartPosition)
       .map((cart) => <Card cart={cart}></Card>);
   }
 

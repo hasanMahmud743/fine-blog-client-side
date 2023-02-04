@@ -1,4 +1,4 @@
-import { add_to_cart } from "../actionTypes/actionTypes";
+import { add_to_cart, product_add } from "../actionTypes/actionTypes";
 
 const cartCounter = (store) => (next) => (action) => {
   const state = store.getState();
@@ -11,6 +11,16 @@ const cartCounter = (store) => (next) => (action) => {
     };
 
     return next(newCart);
+  }
+
+  if(action.type === product_add){
+    const newCart = {
+      ...action,
+      payload: { ...action.payload, cartPosition : cart.length },
+    };
+
+    return next(newCart)
+
   }
 
   return next(action);
